@@ -1,0 +1,17 @@
+Explanation
+1.Keypad Mapping: We define an array keypad where each index corresponds to a digit on the keypad, and it contains the 
+string of letters associated with that digit.
+
+2.Processing Input: We loop through each character in the input string:
+If the character is #, we stop processing as it indicates the end of input.
+If the character is *, we perform a backspace operation by removing the last character from the output if it exists.
+If the character is a digit, we count how many times it repeats consecutively to determine which letter to select from
+the keypad array.
+If the character is a space, it acts as a pause, allowing us to type two characters from the same button consecutively.
+
+3.Letter Selection: For each sequence of repeated digits, we calculate the index of the letter to use by taking (count - 1)
+% length_of_letters, where count is the number of times the digit repeats.
+
+4.Output: We append the selected letter to the output string.
+
+This method effectively simulates the behaviour of typing, including handling  pasuses and backspaces.
