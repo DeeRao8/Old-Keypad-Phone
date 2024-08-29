@@ -1,0 +1,59 @@
+   public class OldPhonePad {
+public static String oldPhonePad(String input) {
+        StringBuilder output = new StringBuilder();
+        String[] keypad = {
+            "",     // 0
+            "",     // 1
+            "ABC",  // 2
+            "DEF",  // 3
+            "GHI",  // 4
+            "JKL",  // 5
+            "MNO",  // 6
+            "PQRS", // 7
+            "TUV",  // 8
+            "WXYZ"  // 9
+        };
+
+        int i = 0;
+        while (i < input.length()) {
+            char currentChar = input.charAt(i);
+
+            if (currentChar == '#') {
+                break; // End of input
+            } else if (currentChar == '*') {
+                // Backspace: remove the last character if any
+                if (output.length() > 0) {
+                    output.deleteCharAt(output.length() - 1);
+                }
+            } else if (Character.isDigit(currentChar)) {
+                int digit = Character.getNumericValue(currentChar);
+                int count = 1;
+
+                // Count consecutive same digits
+                while (i + 1 < input.length() && input.charAt(i + 1) == currentChar) {
+                    count++;
+                    i++;
+                }
+
+                // Determine the correct letter
+                if (digit > 0 && digit < keypad.length && keypad[digit].length() > 0) {
+                    int letterIndex = (count - 1) % keypad[digit].length();
+                    output.append(keypad[digit].charAt(letterIndex));
+                }
+            } else if (currentChar == ' ') {
+                // Pause: reset the count for the next character
+                // This allows typing two characters from the same button
+            }
+            i++;
+        }
+
+        return output.toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(oldPhonePad("33#")); // Output: E
+        System.out.println(oldPhonePad("227*#")); // Output: B
+        System.out.println(oldPhonePad("4433555 555666#")); // Output: HELLO
+        System.out.println(oldPhonePad("8 88777444666*664#")); // Output: TUNING
+    }
+}
